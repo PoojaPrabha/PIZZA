@@ -20,7 +20,7 @@ public class Cart {
 	private double grandTotal;
 	@OneToOne
 	private Customer customer;
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="cart",fetch=FetchType.EAGER)
 	private List<CartItem> cartItems;
 	public int getId() {
 		return id;

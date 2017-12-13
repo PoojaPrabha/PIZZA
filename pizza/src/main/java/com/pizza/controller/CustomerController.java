@@ -17,11 +17,11 @@ import com.pizza.services.CustomerService;
 	public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
-	@RequestMapping(value="/all/registrationform") 	
+	@RequestMapping("/all/registrationform") 	
 	public ModelAndView getRegistrationForm(){
 	return new ModelAndView("registrationform","customer",new Customer());
 	}
-	@RequestMapping(value="/all/registercustomer")
+	@RequestMapping("/all/registercustomer")
 	public String registerCustomer(@Valid @ModelAttribute Customer customer,BindingResult result,Model model){
 	if(result.hasErrors())//hibernate validation
 		return "registrationform";

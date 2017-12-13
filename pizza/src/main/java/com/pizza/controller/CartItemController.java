@@ -3,10 +3,14 @@ package com.pizza.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pizza.model.Cart;
 import com.pizza.model.CartItem;
 import com.pizza.model.Customer;
+import com.pizza.model.CustomerOrder;
 import com.pizza.model.Product;
 import com.pizza.model.ShippingAddress;
 import com.pizza.model.User;
 import com.pizza.services.CartItemService;
 import com.pizza.services.CustomerService;
 import com.pizza.services.ProductService;
+
 @Controller
 public class CartItemController {
 	@Autowired	
@@ -28,9 +34,10 @@ public class CartItemController {
 	private ProductService productService;
 	@Autowired
 	private CustomerService customerService;
+	
 	org.springframework.security.core.userdetails.User user;
 	@RequestMapping(value="/cart/addtocart/{id}")
-public String addToCart(@AuthenticationPrincipal Principal principal, @PathVariable int id,@RequestParam int quantity){
+	public String addToCart(@AuthenticationPrincipal Principal principal, @PathVariable int id,@RequestParam int quantity){
 	Product product=productService.getProduct(id);
 	String username=principal.getName();
 	User user=customerService.getUser(username);
@@ -41,7 +48,7 @@ public String addToCart(@AuthenticationPrincipal Principal principal, @PathVaria
 	for(CartItem cartItem:cartItems){
 		if(cartItem.getProduct().getId()==id){
 			cartItem.setQuantity(quantity); //update the quantity
-			cartItem.setTotalPrice(cartItem.getQuantity() * product.getPrice()); //update the totalprice
+			cartItem.setTotalPrice(cartItem.getQuantity() * product.getPrice() ); //update the totalprice
 			cartItemService.saveOrUpdateCartItem(cartItem); //update cartitem , quantity and totalprice 
 			return "redirect:/cart/getcart";
 		}
@@ -89,4 +96,34 @@ public String checkout(@PathVariable int cartId,Model model){
 	model.addAttribute("cartId",cartId);
 	return "shippingAddressForm";
 }
+
+		@RequestMapping(value="/cart/createorder/{cartId}")
+	//from shippingaddressform.jsp to createOrder method
+	public String createOrder(@PathVariable int cartId,@Valid @ModelAttribute ShippingAddress shippingaddress,BindingResult result,Model model){
+		//set the updated shippingaddress for the customer
+		//get customer object
+		//using cartid , get cart, from cart , get customer,
+		//Update shipping address for the customer
+		if(result.hasErrors())
+			return "shippingAddressForm";
+		Cart cart=cartItemService.getCart(cartId);
+		Customer customer=cart.getCustomer();
+		customer.setShippingaddress(shippingaddress);//update shippingaddress set.... where customerid=?
+		cart.setCustomer(customer);
+		CustomerOrder customerOrder=cartItemService.createOrder(cart);//insert into customerorder
+		model.addAttribute("order",customerOrder);
+		model.addAttribute("cartId",cartId);
+		return "orderdetails";
+	}
+	@RequestMapping(value="/cart/confirm/{cartId}")
+	public String confirm(@PathVariable int cartId){
+		Cart cart=cartItemService.getCart(cartId);
+		List<CartItem> cartItems=cart.getCartItems();
+		for(CartItem cartItem : cartItems){//for(T v:collection)
+			cartItemService.removeCartItem(cartItem.getId());//delete from cartitem where id=3
+		}
+		return "thanks";
+	}
+
+			
 }

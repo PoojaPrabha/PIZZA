@@ -8,23 +8,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Login Page<br>
-	${error }<br>
-	${msg }<br>
-	<form action="<c:url value='/j_spring_security_check'></c:url>" method="post">
-		<table>
-			<tr>
-				<td>Enter Username</td>
-				<td><input type="text" name="j_username"></td>
-			</tr>
-			<tr>
-				<td>Enter Password</td>
-				<td><input type="password" name="j_password"></td>
-			</tr>
-			<tr>
-			<td><input type="submit" value="submit"></td>
-			</tr>
-	</table>
-	</form>
+  Login Page<br>
+  	${error }<br>
+  	${msg }<br>
+  	
+  	<form action="<c:url value='/j_spring_security_check'></c:url>" method="post">
+  	
+  	<table>
+  		<tr>
+  			<td>Enter Username</td>
+  			<td><input type="text" name="j_username"></td>
+  		</tr>
+  	
+  		<tr>
+  			<td>Enter Password</td>
+  			<td><input type="password" name="j_password"></td>
+  		</tr>
+  		<tr>
+  		<td><input type="submit" value="submit"></td>
+  		</tr>
+  	
+  	
+  	</table>
+  	</form>
+  
+  
+  
+  
+  
 </body>
 </html>

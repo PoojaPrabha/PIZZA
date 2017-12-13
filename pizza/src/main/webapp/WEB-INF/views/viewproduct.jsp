@@ -10,27 +10,25 @@
 </head>
 <body>
 <h4>Product Details</h4><br>
-
 <form action="<c:url value='/cart/addtocart/${product.id }'></c:url>">
-</form>
+<img src='<c:url value='/resources/images/${product.id }.png'></c:url>' height="70" width="70" alt="Image not Available ">
 
-<img src='<c:url value='/resources/images/${product.id }.png'></c:url>'height="70" width="70" alt="Image Not Available">
 <pre>
-
-<b>Product Name:</b> ${product.productname }<br>
-<b>Product Description:</b>${product.productDescription }<br>
+<b>Product Name:</b>${product.productname}<br>
+<b>Product Description:</b>${product.productDescription}<br>
 <b>Price:</b>${product.price }<br>
 <b>Quantity:</b>${product.quantity }<br>
-<b>Category </b>${product.category.categoryname }<br>
+<b>Category:</b>${product.category.categoryname}<br>
+
+
 
 <security:authorize access="hasRole('ROLE_USER')">
-<b>Enter Quantity</b><input type="text" name="quantity">
-<a class="btn btn-info btn-lg" >Shopping Cart
-<input type="submit" value="Add To Cart">
-<a href="<c:url value='/cart/addToCart/${product.id }'></c:url>>" class="btn btn-info btn-lg" >Shopping Cart
-<span class="glyphicon glyphicon-shopping cart"></span></a>
+<b>Enter Quantity</b><input type="number" name="quantity">
+<button type="submit" value='Add To Cart' class="btn btn-info btn-lg">Shopping Cart
+<span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart
+</button>
 </security:authorize>
-
 </pre>
+</form>
 </body>
 </html>

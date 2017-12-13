@@ -2,11 +2,11 @@ package com.pizza.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.pizza.services.ProductService;
 
@@ -14,13 +14,12 @@ import com.pizza.services.ProductService;
 public class HomeController{
 	@Autowired
 	private ProductService productService;
-	public HomeController()
-	{
+	public HomeController(){
 		System.out.println("HelloController GETS INTANTIATED");
 	}
 	@RequestMapping(value="/home")
 	public String homePage(HttpSession session){
-		session.setAttribute("categories",productService.getAllCategories());
+		session.setAttribute("customer",productService.getAllCategories());
 	return "home"; //logical view name
 	}
 	@RequestMapping("/aboutus")
@@ -38,11 +37,5 @@ public class HomeController{
 				model.addAttribute("msg","Loggedout successfully");
 			return "login";
 		}
-	
-	@RequestMapping(value="/home")
-	public String homePage(HttpSession session){
-			session.setAttribute("categories", productService.getAllCategories());
-		return "home";//logical view name
-	}
 	
 }
