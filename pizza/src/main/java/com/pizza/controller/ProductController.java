@@ -1,5 +1,6 @@
 package com.pizza.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,73 +27,77 @@ import com.pizza.model.Category;
 import com.pizza.model.Product;
 import com.pizza.services.ProductService;
 
+
 @Controller
 public class ProductController {
-	
+
+
 	@Autowired
-private ProductService productService;
+	private ProductService productService;
 	
 	@RequestMapping(value="/all/getallproducts")
-public ModelAndView getAllProducts(){
+	public ModelAndView getAllProducts() {
+		List<Product> products=productService.getAllProducts();
+		//productlist - logical view name [productlist.jsp]
+		//products - model attribute [use this attribute in jsp]
+		//products - List<Product> data 
+		return new ModelAndView("productlist","productsAttr",products);
+		//JSTL and EL 
 		
-	List<Product> products=productService.getAllProducts();
-	//productlist - logical view name [productlist.jsp]
-	//products - model attribute [use this attribute in jsp]
-	//products - List<Product> data 
-	return new ModelAndView("productlist","productsAttr",products);
-	//JSTL and EL 
-}
-	//all /viewproduct/1 [id=1]
-	@RequestMapping(value="/all/viewproduct/{id}")
-	public ModelAndView getProduct1(@PathVariable int id){
+	}
+	@RequestMapping(value="all/viewproduct/{id}")
+	public ModelAndView getProduct(@PathVariable int id) {
 		Product product=productService.getProduct(id);
 		return new ModelAndView("viewproduct","product",product);
 	}
+	
 	@RequestMapping(value="/admin/deleteproduct/{id}")
-	public String deleteProduct(HttpServletRequest request,@PathVariable int id){
+	public String deleteProduct(HttpServletRequest request, @PathVariable int id){
 		String rootDirectory=request.getServletContext().getRealPath("/");
 		Path path=Paths.get(rootDirectory + "/WEB-INF/resources/images/"+id+".png");
-		
 		if(Files.exists(path)){
-			try{
+			try {
 				Files.delete(path);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-	}
 		productService.deleteProduct(id);
 		return "redirect:/all/getallproducts";
+	
 	}
 	
 	@RequestMapping(value="/admin/getproductform")
 	public String getProductForm(@RequestParam(required=false)int id,Model model){
 		if(id==0)//add product
 		model.addAttribute("product",new Product());//1
-		else{ //edit product
+		else{
 			Product product=productService.getProduct(id);//select * from product where id=?
 			model.addAttribute("product",product);
 		}
-		//SELECT * from category
+		//SELECT * from Category
 		List<Category> categoriesList=productService.getAllCategories();
 		model.addAttribute("categories",categoriesList);
 		return "productform";
+		
 	}
 	@RequestMapping(value="/admin/saveorupdateproduct")
-	public String saveorUpdateProduct(HttpServletRequest request,@Valid @ModelAttribute(name="product") Product product,BindingResult result,Model model){//3
-		if(result.hasErrors()){//constraint violation
-			List<Category> categories=productService.getAllCategories();
+    public String saveorUpdateProduct(HttpServletRequest request,@Valid @ModelAttribute(name="product")  Product product,BindingResult result,Model model){//3
+    
+    	if(result.hasErrors()){//constraint violation
+    		List<Category> categories=productService.getAllCategories();
 			model.addAttribute("categories",categories);
+    		
 			return "productform";
-		}
-		System.out.println(product.getProductname());
-		
-		productService.saveOrUpdateProduct(product); //Insert and Update
-		String rootDirectory=request.getServletContext().getRealPath("/");
-		System.out.println(rootDirectory);
-		Path path=Paths.get(rootDirectory + "/WEB-INF/resources/images/"+product.getId()+".png");
-		MultipartFile prodImage=product.getImage();//uploaded image[jpeg,gif...]
-		try {
+    	}
+    	System.out.println(product.getProductname());
+    	productService.saveOrUpdateProduct(product); //insert and update
+    	String rootDirectory=request.getServletContext().getRealPath("/");
+    	System.out.println(rootDirectory);
+    	Path path=Paths.get(rootDirectory + "/WEB-INF/resources/images/"+product.getId()+".png");
+    	MultipartFile prodImage=product.getImage();//uploaded image [jpeg,gif,..]
+    	try {
 			prodImage.transferTo(new File(path.toString()));
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
@@ -101,17 +106,27 @@ public ModelAndView getAllProducts(){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//transfer the image to the file named productid.png
-		return "redirect:/all/getallproducts";
+    	
+    	
+    	
+    	return "redirect:/all/getallproducts";
 	}
-		
+	
 		@RequestMapping("/all/product/searchbycategory")
-		public String selectByCatagory(@RequestParam String searchCondition,Model model){
-			model.addAttribute("productsAttr",productService.getAllCategories());
-			if(searchCondition.equals("All"))
-				model.addAttribute("searchCondition","");
-			else
-			model.addAttribute("searchCondition",searchCondition);
-			return "productlist";
-		}
-		
-	}
+    	public String selectByCategory(@RequestParam String searchCondition,Model model) {
+    		model.addAttribute("productsAttr", productService.getAllCategories());
+    		if(searchCondition.equals("All"))
+    			model.addAttribute("searchCondition", "");
+    		else
+    			model.addAttribute("searchCondition", searchCondition);
+    		return "productList";
+    	
+    		
+			
+			
+			
+			
+    }		
+			
+			
+}

@@ -45,4 +45,8 @@ public class User {
 	public void setAuthorities(Authorities authorities) {
 		this.authorities = authorities;
 	}
+	public Customer getCustomer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
