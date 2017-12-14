@@ -30,7 +30,7 @@ public class DBConfiguration {
 	public DataSource dataSource() { // CHECK THIS == getdataSource or getDataSource
 	    BasicDataSource dataSource = new BasicDataSource();
 	    dataSource.setDriverClassName("org.h2.Driver");
-	    dataSource.setUrl("jdbc:h2:tcp://localhost/~/s180233");
+	    dataSource.setUrl("jdbc:h2:tcp://localhost/~/test3");
 	    dataSource.setUsername("sa");
 	    dataSource.setPassword("sa");
 	    return dataSource;

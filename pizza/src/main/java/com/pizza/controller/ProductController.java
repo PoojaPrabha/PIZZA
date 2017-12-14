@@ -25,12 +25,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pizza.model.Category;
 import com.pizza.model.Product;
 import com.pizza.services.ProductService;
+
 @Controller
 public class ProductController {
+	
 	@Autowired
 private ProductService productService;
+	
 	@RequestMapping(value="/all/getallproducts")
 public ModelAndView getAllProducts(){
+		
 	List<Product> products=productService.getAllProducts();
 	//productlist - logical view name [productlist.jsp]
 	//products - model attribute [use this attribute in jsp]
@@ -40,9 +44,9 @@ public ModelAndView getAllProducts(){
 }
 	//all /viewproduct/1 [id=1]
 	@RequestMapping(value="/all/viewproduct/{id}")
-	public ModelandView getProduct(@PathVariable int id){
+	public ModelAndView getProduct1(@PathVariable int id){
 		Product product=productService.getProduct(id);
-		return new ModelandView("viewproduct","product",product);
+		return new ModelAndView("viewproduct","product",product);
 	}
 	@RequestMapping(value="/admin/deleteproduct/{id}")
 	public String deleteProduct(HttpServletRequest request,@PathVariable int id){
@@ -60,6 +64,7 @@ public ModelAndView getAllProducts(){
 		productService.deleteProduct(id);
 		return "redirect:/all/getallproducts";
 	}
+	
 	@RequestMapping(value="/admin/getproductform")
 	public String getProductForm(@RequestParam(required=false)int id,Model model){
 		if(id==0)//add product
@@ -75,14 +80,14 @@ public ModelAndView getAllProducts(){
 	}
 	@RequestMapping(value="/admin/saveorupdateproduct")
 	public String saveorUpdateProduct(HttpServletRequest request,@Valid @ModelAttribute(name="product") Product product,BindingResult result,Model model){//3
-		if(result.hasError()){//constraint violation
+		if(result.hasErrors()){//constraint violation
 			List<Category> categories=productService.getAllCategories();
 			model.addAttribute("categories",categories);
 			return "productform";
 		}
 		System.out.println(product.getProductname());
 		
-		productService.saveorUpdateProduct(product); //Insert and Update
+		productService.saveOrUpdateProduct(product); //Insert and Update
 		String rootDirectory=request.getServletContext().getRealPath("/");
 		System.out.println(rootDirectory);
 		Path path=Paths.get(rootDirectory + "/WEB-INF/resources/images/"+product.getId()+".png");

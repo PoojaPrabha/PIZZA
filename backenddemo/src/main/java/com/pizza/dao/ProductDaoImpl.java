@@ -8,16 +8,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pizza.model.Category;
 import com.pizza.model.Product;
 @Repository
 public class ProductDaoImpl implements ProductDao {
-	
+	/*
 	@Override
 	public List<Product> getAllProducts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	*/
 @Autowired
 private SessionFactory sessionFactory;
 	public List<Product> getAllProducts() {
