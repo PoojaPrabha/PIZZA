@@ -16,29 +16,33 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.pizza.model.Authorities;
 import com.pizza.model.BillingAddress;
 import com.pizza.model.Cart;
+import com.pizza.model.CartItem;
 import com.pizza.model.Category;
 import com.pizza.model.Customer;
+import com.pizza.model.CustomerOrder;
 import com.pizza.model.Product;
 import com.pizza.model.ShippingAddress;
 import com.pizza.model.User;
 
-
 @Configuration
-@EnableTransactionManagement //To enable transaction
+@EnableTransactionManagement
+@ComponentScan("com.sports.configuration")
 public class DBConfiguration {
+
 	@Bean(name="dataSource")
-	public DataSource dataSource() { // CHECK THIS == getdataSource or getDataSource
+	public DataSource dataSource() {
 	    BasicDataSource dataSource = new BasicDataSource();
 	    dataSource.setDriverClassName("org.h2.Driver");
 	    dataSource.setUrl("jdbc:h2:tcp://localhost/~/test3");
 	    dataSource.setUsername("sa");
-	    dataSource.setPassword("sa");
+	    dataSource.setPassword("");
 	    return dataSource;
 	}
 	/*
 	 * <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBuilder">
 	 * <property name="dataSource" ref="dataSource">
 	 */
+
 	@Bean
 	public SessionFactory sessionFactory() {
 		LocalSessionFactoryBuilder lsf=
@@ -51,7 +55,7 @@ public class DBConfiguration {
 		lsf.addProperties(hibernateProperties);
 		//An array of Class objects of all the entities
 		//Map all entities to relational table
-		Class classes[]=new Class[]{Product.class,Category.class,User.class,Authorities.class,Customer.class,BillingAddress.class,Cart.class};
+		Class classes[]=new Class[]{Product.class,Category.class,User.class,Authorities.class,Customer.class,BillingAddress.class,ShippingAddress.class,Cart.class,CartItem.class,CustomerOrder.class};
 	    return lsf.addAnnotatedClasses(classes).buildSessionFactory();
 	}
 	@Bean

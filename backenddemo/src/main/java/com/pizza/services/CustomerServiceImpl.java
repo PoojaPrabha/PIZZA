@@ -9,12 +9,12 @@ import com.pizza.model.User;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-	@Autowired
 	
-private CustomerDao customerDao;
+	@Autowired
+	private CustomerDao customerDao;
 	public void registerCustomer(Customer customer) {
 		customerDao.registerCustomer(customer);
-
+		
 	}
 	public boolean isEmailValid(String email) {
 		// TODO Auto-generated method stub
@@ -27,5 +27,5 @@ private CustomerDao customerDao;
 	public User getUser(String username) {
 		return customerDao.getUser(username);
 	}
-	
+
 }

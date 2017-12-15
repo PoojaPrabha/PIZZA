@@ -4,12 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class BillingAddress {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -20,7 +20,7 @@ public class BillingAddress {
 	@NotEmpty
 	private String city;
 	@NotEmpty
-	private String State;
+	private String state;
 	@NotEmpty
 	private String zipcode;
 	
@@ -49,10 +49,10 @@ public class BillingAddress {
 		this.city = city;
 	}
 	public String getState() {
-		return State;
+		return state;
 	}
 	public void setState(String state) {
-		State = state;
+		this.state = state;
 	}
 	public String getZipcode() {
 		return zipcode;
@@ -60,4 +60,7 @@ public class BillingAddress {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	
+	
+
 }

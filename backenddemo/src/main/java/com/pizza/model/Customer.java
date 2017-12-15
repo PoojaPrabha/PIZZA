@@ -1,5 +1,6 @@
 package com.pizza.model;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +13,14 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
+
 @Entity
 public class Customer {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int id;
 	@NotEmpty(message="Firstname cannot be blank")
 	private String firstname;
@@ -37,23 +42,25 @@ public class Customer {
 	private ShippingAddress shippingaddress;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Cart cart;
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getFirstname() {
-		return firstname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
 	public String getLastname() {
 		return lastname;
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 	public String getEmail() {
 		return email;
@@ -85,11 +92,12 @@ public class Customer {
 	public void setShippingaddress(ShippingAddress shippingaddress) {
 		this.shippingaddress = shippingaddress;
 	}
-
-	public Cart getCart() {
-	return cart;
+		public Cart getCart() {
+			return cart;
+		}
+		public void setCart(Cart cart) {
+			this.cart = cart;
+		
 	}
-	public void setCart(Cart cart) {
-	this.cart = cart;
-	}
+	
 }

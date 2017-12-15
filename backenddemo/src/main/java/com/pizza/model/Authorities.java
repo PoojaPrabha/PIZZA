@@ -1,21 +1,29 @@
 package com.pizza.model;
 
-import javax.persistence.Column;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
 @Entity
 public class Authorities {
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+
 	private int id;
 	private String role;
 	@OneToOne
-	@JoinColumn( name="username",unique=true)
+	@JoinColumn(name="username",unique=true)
 	private User user;
+	
+	
+	
 	public int getId() {
 		return id;
 	}

@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Cascade;
 @Entity
-public class Cart {
+public class Cart{
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -22,6 +22,8 @@ public class Cart {
 	private Customer customer;
 	@OneToMany(mappedBy="cart",fetch=FetchType.EAGER)
 	private List<CartItem> cartItems;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -40,10 +42,17 @@ public class Cart {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
 	public List<CartItem> getCartItems() {
 		return cartItems;
 	}
 	public void setCartItems(List<CartItem> cartItems) {
 		this.cartItems = cartItems;
 	}
+	
+	
 }
+	
+
+	
+	

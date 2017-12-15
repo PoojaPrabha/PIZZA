@@ -15,28 +15,32 @@ import com.pizza.model.Customer;
 import com.pizza.model.CustomerOrder;
 @Repository
 @Transactional
-public class CartItemDaoImpl implements CartItemDao{
+public class CartItemDaoImpl implements CartItemDao {
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	public void saveOrUpdateCartItem(CartItem cartItem) {
+	public void SaveOrUpdateCartItem(CartItem cartItem) {
 		Session session=sessionFactory.getCurrentSession();
 		session.saveOrUpdate(cartItem);
-		//TODO Auto-generated method stub 
+		
 	}
 	public void removeCartItem(int cartItemId) {
 		Session session=sessionFactory.getCurrentSession();
-		//select * from cartitem where id=?
-		CartItem cartItem=(CartItem)session.get(CartItem.class,cartItemId);
-		//delete from cartitem where id=?
-		session.delete(cartItem);
+	    //select * from cartitem where id=?
+	    CartItem cartItem=(CartItem)session.get(CartItem.class, cartItemId);
+	    //delete from cartitem where id=?
+	    session.delete(cartItem);
+		
 	}
 	public Cart getCart(int cartId) {
+
 		Session session=sessionFactory.getCurrentSession();
 		Cart cart=(Cart)session.get(Cart.class, cartId);
 		//select records both from parent and child table , fetchType.EAGER
 		return cart;
 	}
 	public CustomerOrder createOrder(Cart cart) {
+		
 		Session session=sessionFactory.getCurrentSession();
 		CustomerOrder customerOrder=new CustomerOrder();
 		customerOrder.setPurchaseDate(new Date());
@@ -53,11 +57,9 @@ public class CartItemDaoImpl implements CartItemDao{
 		customerOrder.setBillingAddress(customer.getBillingaddress());//FK billingaddress_id
 		customerOrder.setShippingAddress(customer.getShippingaddress());//FK shipping Address Id
 		session.save(customerOrder);
-		//insert into customerorder ..
-		//update cart set grandtotal where id=?
-		//update shippingaddress set ..... where id=?
+		
 		return customerOrder;
 	}
-
+	
+	
 }
-

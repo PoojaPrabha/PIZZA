@@ -4,23 +4,23 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Column;
 
 import org.hibernate.validator.constraints.NotEmpty;
 @Entity
-@Table(name="user_s180015")
 public class User {
+	
 	@Id
-	@NotEmpty(message="Username is mandatory")
+	@NotEmpty(message="Username is madatory")
 	private String username;
 	@NotEmpty(message="Password cannot be blank")
 	private String password;
 	private boolean enabled;
 	@OneToOne(mappedBy="user",cascade=CascadeType.ALL)
 	private Authorities authorities;
-	
+	@OneToOne(mappedBy="user")
 	private Customer customer;
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -46,7 +46,11 @@ public class User {
 		this.authorities = authorities;
 	}
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		return customer;
 	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
+
 }

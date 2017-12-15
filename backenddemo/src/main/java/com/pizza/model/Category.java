@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Category {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -28,6 +29,5 @@ public class Category {
 	public void setCategoryname(String categoryname) {
 		this.categoryname = categoryname;
 	}
-	
-	
+
 }
