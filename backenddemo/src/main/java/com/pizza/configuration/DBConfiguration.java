@@ -26,7 +26,7 @@ import com.pizza.model.User;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.sports.configuration")
+@ComponentScan("com.pizza.configuration")
 public class DBConfiguration {
 
 	@Bean(name="dataSource")
