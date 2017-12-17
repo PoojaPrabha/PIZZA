@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="item">
-                    <img class="third-slide home-image" src="resources/images/img3.jpg" alt="Third slide">
+                    <img class="third-slide home-image" src="resources/images/img3.png" alt="Third slide">
                     <div class="container">
                         <div class="carousel-caption">
                             <h1></h1>
@@ -83,7 +83,7 @@
   <div class="col-md-4">
     <div class="thumbnail">
       <a href="">
-        <img src="resources/images/pic1.jpg" alt="Lights" style="width:30%">
+        <img src="resources/images/pic1.png" alt="Hawaiian Twist" style="width:30%">
         <div class="caption">
           <p>Explore Sports</p>
         </div>
@@ -93,7 +93,7 @@
   <div class="col-md-4">
     <div class="thumbnail">
       <a href="">
-        <img src="resources/images/pic2.jpg" alt="Nature" style="width:30%">
+        <img src="resources/images/pic2.png" alt="New Orleans Chicken Sizzler" style="width:30%">
         <div class="caption">
           <p>Upto 30% Discount</p>
         </div>
@@ -103,7 +103,7 @@
   <div class="col-md-4">
     <div class="thumbnail">
       <a href="">
-        <img src="resources/images/pic3.jpg" alt="Fjords" style="width:30%">
+        <img src="resources/images/pic3.png" alt="Fjords" style="width:30%">
         <div class="caption">
           <p>Buy with Us</p>
         </div>

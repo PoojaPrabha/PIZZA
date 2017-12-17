@@ -17,7 +17,7 @@
      
     <li class="glyphicon glyphicon-map-marker" style="width:30px"></li>20/10,Nugambakkam,Chennai-100 <br>
    <li class="glyphicon glyphicon-phone" style="width:30px"></li> Phone: +044 2556 1111<br>
-   <li class="glyphicon glyphicon-envelope" style="width:30px"> </li> Email: travel@mail.com<br> 
+   <li class="glyphicon glyphicon-envelope" style="width:30px"> </li> Email: pizzahut@mail.com<br> 
     
     
    
